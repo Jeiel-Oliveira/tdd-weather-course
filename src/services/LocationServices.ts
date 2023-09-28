@@ -1,5 +1,5 @@
 import GetLocation from "react-native-get-location"
-class LocaltionService {
+class LocationService {
   static async getCurrentPosition() {
     return GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
@@ -8,4 +8,4 @@ class LocaltionService {
   }
 }
 
-export default LocaltionService
+export default LocationService

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { View, ViewProps, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../constants';
 
 type Props = {
