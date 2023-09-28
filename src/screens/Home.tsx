@@ -5,12 +5,12 @@ import moment from 'moment';
 import WeatherCurrent from '../components/WeatherCurrent';
 import WeatherCoordinates from '../components/WeatherCoordinates';
 
-export default function App() {
+export default function Home() {
   const now = moment(new Date())
   return (
       <LinearGradient 
         colors={[Colors.LIGHT_GRAY, Colors.DARKER_GRAY]} 
-        testID='app'
+        testID='home'
         style={styles.container}
       >
         <View style={styles.title}>

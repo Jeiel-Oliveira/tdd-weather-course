@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from '../App';
 import { render } from '@testing-library/react-native'
 import moment from 'moment';
 import WeatherCurrent from '../../components/WeatherCurrent';
 import { View } from 'react-native';
 import WeatherCoordinates from '../../components/WeatherCoordinates';
+import Home from '../Home';
 
 function add(a: number, b: number) {
   return a + b
@@ -14,18 +14,18 @@ function add(a: number, b: number) {
 jest.mock('../../components/WeatherCoordinates', () => jest.fn().mockReturnValue(null))
 jest.mock('../../components/WeatherCurrent', () => jest.fn().mockReturnValue(null))
 
-describe('App', () => {
+describe('Home', () => {
   test('Should add two numbers correctly', () => {
     expect(add(2, 2)).toBe(4)
   })
 
   test('Should render correclty 1', () => {
-    renderer.create(<App />)
+    renderer.create(<Home />)
   })
 
   test('Should render correclty 2', () => {
-    const wrapper = render(<App />)
-    wrapper.getByTestId('app')
+    const wrapper = render(<Home />)
+    wrapper.getByTestId('home')
   })
 
   describe('Title section', () => {
@@ -40,12 +40,12 @@ describe('App', () => {
     })
   
     test('should display current date', () => {
-      const { getByText } = render(<App />)
+      const { getByText } = render(<Home />)
       expect(getByText('Dec 31, 1999')).toBeTruthy()
     })
   
     test('should display current day', () => {
-      const { getByText } = render(<App />)
+      const { getByText } = render(<Home />)
       expect(getByText('Friday')).toBeTruthy()
     })
   })
@@ -54,7 +54,7 @@ describe('App', () => {
     (WeatherCurrent as jest.Mock).mockReturnValue(
       <View testID={'mock-weather-current'}/>
     )
-    const wrapper = render(<App/>)
+    const wrapper = render(<Home/>)
     const weatherCurrent = wrapper.getByTestId('mock-weather-current')
     expect(weatherCurrent).toBeTruthy()
   })
@@ -63,13 +63,13 @@ describe('App', () => {
     (WeatherCoordinates as jest.Mock).mockReturnValue(
       <View testID={'mock-weather-coordinates'}/>
     )
-    const wrapper = render(<App/>)
+    const wrapper = render(<Home/>)
     const weatherCoordinates = wrapper.getByTestId('mock-weather-coordinates')
     expect(weatherCoordinates).toBeTruthy()
   })
 
   test('Should contain a divider', () => {
-    const wrapper = render(<App/>)
+    const wrapper = render(<Home/>)
     const divider = wrapper.getByTestId('app-divider')
     expect(divider).toBeTruthy()
   })
