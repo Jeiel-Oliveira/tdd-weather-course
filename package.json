@@ -19,6 +19,16 @@
       "./src/setupTests.ts"
     ]
   },
+  "expo": {
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ]
+  },
   "dependencies": {
     "@expo/metro-config": "^0.10.7",
     "@hookform/resolvers": "^3.3.1",
@@ -28,6 +38,7 @@
     "@testing-library/jest-native": "^5.4.3",
     "expo": "~49.0.12",
     "expo-linear-gradient": "^12.5.0",
+    "expo-location": "^16.3.0",
     "expo-status-bar": "~1.6.0",
     "jest-expo": "^49.0.0",
     "json-schema-yup-transformer": "^1.6.12",

@@ -25,7 +25,8 @@ describe('WeatherCurrent', () => {
   test('Should navigate to weather screen with location', async () => {
     const mockNavigate = jest.fn();
     (useNavigation as jest.Mock).mockReturnValueOnce({navigate: mockNavigate})
-
+    
+    jest.spyOn(LocationService, 'getCurrentPosition').mockResolvedValueOnce({ latitude: 0, longitude: 0 });
     const wrapper = render(<WeatherCurrent/>)
     const button = wrapper.getByTestId('weather-current')
     fireEvent.press(button)
