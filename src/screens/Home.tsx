@@ -18,10 +18,10 @@ export default function Home() {
           <Text style={styles.day}>{now.format('dddd')}</Text>
         </View>
         <WeatherCurrent/>
-        <WeatherCoordinates/>
         <Text style={styles.divider} testID='app-divider'>
           Or
         </Text>
+        <WeatherCoordinates/>
       </LinearGradient>
   )
 }
