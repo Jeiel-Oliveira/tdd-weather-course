@@ -10,9 +10,14 @@ export default function WeatherCurrent () {
 
   const handleFechWeather = useCallback(async () => {
     setLoading(true)
-    const position = await LocationService.getCurrentPosition()
-    navigation.navigate('weather', position)
-    setLoading(false)
+    try {
+      const position = await LocationService.getCurrentPosition()
+      navigation.navigate('weather', position)
+    } catch (err) {
+      console.warn('err')
+    } finally {
+      setLoading(false)
+    }
   },[navigation])
 
   return (

@@ -38,6 +38,10 @@ describe('WeatherCurrent', () => {
   })
 
   describe('loader', () => {
+    afterEach(() => {
+      jest.restoreAllMocks()
+    })
+    
     test('Should be rendered whem position is being fetched', async () => {
       let mockResolve!: (position: {latitude: number, longitude: number}) => void
       jest.spyOn(LocationService, 'getCurrentPosition').mockImplementationOnce(
@@ -55,6 +59,31 @@ describe('WeatherCurrent', () => {
 
       await act(async () => {
         await mockResolve({latitude: 0, longitude: 0})
+      })
+    })
+
+    test('Should not be rendered when position has been fetched', async () => {
+      const wrapper = render(<WeatherCurrent/>)
+      const button = wrapper.getByTestId('weather-current')
+      fireEvent.press(button)
+
+      await waitFor(() => {
+        const loadingElement = wrapper.queryByTestId('button-loading')
+        expect(loadingElement).toBeNull()
+      })
+    })
+
+    test('should not be rendered when fetching position has failed', async () => {
+      jest.spyOn(LocationService, 'getCurrentPosition').mockRejectedValue(new Error(''))
+    
+      const { getByTestId, queryByTestId } = render(<WeatherCurrent />)
+      const button = getByTestId('weather-current')
+    
+      fireEvent.press(button)
+    
+      await waitFor(() => {
+        const loadingElement = queryByTestId('button-loading')
+        expect(loadingElement).toBeNull()
       })
     })
   })
