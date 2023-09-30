@@ -1,7 +1,7 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import { RootStackParamList } from '../screens/Index'
 import ButtonDefault from './ButtonDefault'
 import { TextInput } from 'react-native-gesture-handler'
@@ -20,8 +20,8 @@ const defaultValues: FormValues = {
 }
 
 const validationSchema = yup.object().shape({
-  latitude: yup.number(),
-  longitude: yup.number()
+  latitude: yup.number().min(-90).max(90),
+  longitude: yup.number().min(-180).max(180)
 })
 
 export default function WeatherCoordinates () {
@@ -58,6 +58,9 @@ export default function WeatherCoordinates () {
           )}
           name='latitude'
         />
+        {form.formState.errors.latitude &&
+          <Text style={styles.error}>Latitude must be a valid number</Text>
+        }
 
         <Controller 
           control={form.control}
@@ -73,6 +76,10 @@ export default function WeatherCoordinates () {
           )}
           name='longitude'
         />
+
+        {form.formState.errors.longitude &&
+          <Text style={styles.error}>longitude must be a valid number</Text>
+        }
       </View>
 
       <ButtonDefault onPress={handleSubmit} label='find'/>
@@ -95,5 +102,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 8,
     color: Colors.WHITE
+  },
+  error: {
+    color: Colors.ERROR,
+    fontSize: 10
   }
 })
