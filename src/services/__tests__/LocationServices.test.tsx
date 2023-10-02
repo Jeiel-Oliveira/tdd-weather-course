@@ -1,7 +1,7 @@
 import * as Location from 'expo-location';
 import LocationService from '../LocationServices';
 
-jest.mock('expo-location');
+jest.mock('expo-location')
 
 describe('LocationService', () => {
   test('Should return latitude & longitude from current location with permission', async () => {
@@ -11,7 +11,7 @@ describe('LocationService', () => {
     mockPermission.mockReturnValueOnce({ status: 'granted' })
     mockPosition.mockReturnValueOnce({coords: { latitude: 0, longitude: 0 }})
 
-    const position = await LocationService.getCurrentPosition();
+    const position = await LocationService.getCurrentPosition()
 
     expect(position).toEqual({
       latitude: 0,
