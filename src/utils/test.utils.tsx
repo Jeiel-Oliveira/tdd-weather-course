@@ -1,6 +1,6 @@
-import { createStore } from 'redux'
-import rootReducer from '../store/reducers'
-import { ElementType, ReactElement, ReactNode } from 'react'
+import { Middleware, applyMiddleware, createStore } from 'redux'
+import rootReducer, { StateType } from '../store/reducers'
+import { ElementType, PropsWithChildren, ReactElement, ReactNode } from 'react'
 import { RenderOptions, render } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -12,6 +12,15 @@ type Action = {
 }
 
 const store = createStore(rootReducer)
+
+export function mockStore(interceptor?: jest.Mock) {
+  const logger: Middleware<{}, StateType> = () => next => action => {
+    interceptor?.(action)
+    return next(action)
+  }
+
+  return createStore(rootReducer, undefined, applyMiddleware(logger))
+}
 
 export async function recordSaga(worker: any, initialAction: Action) {
   const dispatched: Array<Function> = []
@@ -37,6 +46,11 @@ const AlltheProviders = (options: CustomRenderOptions) => ({
   }) => {
   return <Provider store={options.store || store}>{children}</Provider> 
 }
+const mockedStore = mockStore()
+
+export function MockProvider({ children }: PropsWithChildren<{}>): JSX.Element {
+  return <Provider store={mockedStore}>{children}</Provider>
+}
 
 const customRender = (ui: ReactElement, options: CustomRenderOptions & Omit<RenderOptions, 'queries'> = {}, ) => {
   const { store, ...others} = options
@@ -44,7 +58,6 @@ const customRender = (ui: ReactElement, options: CustomRenderOptions & Omit<Rend
     wrapper: AlltheProviders({store}) as React.ComponentType,
     ...others,
   })
-
 }
 
 export * from '@testing-library/react-native'
