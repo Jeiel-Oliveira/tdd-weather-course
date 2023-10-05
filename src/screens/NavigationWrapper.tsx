@@ -1,6 +1,6 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
 import Home from './Home';
 import WeatherScreen from './WeatherScreen';
 
@@ -11,7 +11,7 @@ export type RootStackParamList = {
 
 const RootStack = createStackNavigator<RootStackParamList>()
 
-export default function Index () {
+export default function NavigationWrapper () {
   return (
     <NavigationContainer>
       <RootStack.Navigator 

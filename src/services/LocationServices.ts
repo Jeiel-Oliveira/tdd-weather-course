@@ -2,7 +2,8 @@ import * as Location from 'expo-location';
 class LocationService {
   static async getCurrentPosition() {
     try {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+      const permissions = await Location.requestForegroundPermissionsAsync()
+      const { status } = permissions || {};
       if (status !== 'granted') {
         console.warn('sem permissão')
         return

@@ -3,12 +3,12 @@ import { TouchableOpacity, View, Text, ActivityIndicator, Image } from 'react-na
 import { StyleSheet } from 'react-native';
 import { Colors } from '../constants';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { RootStackParamList } from './Index';
 import { fetchWeather } from '../store/weather/actions';
 import { StateType } from '../store/reducers'
 import { connect } from 'react-redux';
 import { WeatherType } from '../types/Weather';
 import Status from '../types/Status';
+import { RootStackParamList } from './NavigationWrapper';
 
 type WeatherScreenRouteProp = RouteProp<RootStackParamList, 'weather'>
 
@@ -24,8 +24,8 @@ type DispatchProps = {
 
 type Props = StateProps & DispatchProps
 
-export function WeatherScreen (Props: Props) {
-  const { fetchWeather, status, weather, error } = Props
+export function WeatherScreen (props: Props) {
+  const { fetchWeather, status, weather, error } = props
   const route = useRoute<WeatherScreenRouteProp>()
   const { goBack } = useNavigation()
 
@@ -44,6 +44,7 @@ export function WeatherScreen (Props: Props) {
       >
         <Text style={styles.backText}>Home</Text>
       </TouchableOpacity>
+
       {status === Status.LOADING &&
         <ActivityIndicator
           size='large' 
@@ -51,9 +52,11 @@ export function WeatherScreen (Props: Props) {
           testID='weather-screen-loader'
         />
       }
+
       {status === Status.FAILURE &&
         <Text style={styles.error}>{error}</Text>
       }
+
       {status === Status.SUCCESS &&
         <>
           <View style={styles.head}>

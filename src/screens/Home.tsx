@@ -8,21 +8,21 @@ import WeatherCoordinates from '../components/WeatherCoordinates';
 export default function Home() {
   const now = moment(new Date())
   return (
-      <LinearGradient 
-        colors={[Colors.LIGHT_GRAY, Colors.DARKER_GRAY]} 
-        testID='home'
-        style={styles.container}
-      >
-        <View style={styles.title}>
-          <Text testID='date' style={styles.date}>{now.format('MMM DD, YYYY')}</Text>
-          <Text style={styles.day}>{now.format('dddd')}</Text>
-        </View>
-        <WeatherCurrent/>
-        <Text style={styles.divider} testID='app-divider'>
-          Or
-        </Text>
-        <WeatherCoordinates/>
-      </LinearGradient>
+    <LinearGradient 
+      colors={[Colors.LIGHT_GRAY, Colors.DARKER_GRAY]} 
+      testID='home'
+      style={styles.container}
+    >
+      <View style={styles.title}>
+        <Text testID='date' style={styles.date}>{now.format('MMM DD, YYYY')}</Text>
+        <Text style={styles.day}>{now.format('dddd')}</Text>
+      </View>
+      <WeatherCurrent/>
+      <Text style={styles.divider} testID='app-divider'>
+        Or
+      </Text>
+      <WeatherCoordinates/>
+    </LinearGradient>
   )
 }
 

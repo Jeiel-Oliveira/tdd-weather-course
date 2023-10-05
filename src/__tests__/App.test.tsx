@@ -2,10 +2,10 @@ import { render } from "@testing-library/react-native"
 import App from "../App"
 import { View } from "react-native"
 import { Provider } from "react-redux"
-import Index from "../screens/Index"
 import store from "../store"
+import NavigationWrapper from "../screens/NavigationWrapper"
 
-jest.mock('../screens/Index', () => jest.fn())
+jest.mock('../screens/NavigationWrapper', () => jest.fn())
 jest.mock('react-redux', () => {
   return {
     ...jest.requireActual<object>('react-redux'),
@@ -17,7 +17,7 @@ describe('App', () => {
   test('Should render routes', () => {
     (Provider as jest.Mock).mockImplementationOnce(({children}) => children)
 
-    const mockIndex = Index as jest.Mock
+    const mockIndex = NavigationWrapper as jest.Mock
 
     mockIndex.mockReturnValueOnce(<View testID='mock-routes'/>)
     const wrapper = render(<App/>)
